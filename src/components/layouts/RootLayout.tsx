@@ -13,13 +13,17 @@ import { NavLink, Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 export function RootLayout() {
+  const{user,loading}=useSelector((state:RootState) => state.userState);
   const [dark, setDark] = useState(false);
   const darkModeHandler = () => {
     setDark(!dark);
     document.body.classList.toggle("dark");
   }
+  console.log(user,loading)
   const links = [
     {
       label: "Dashboard",
@@ -85,11 +89,11 @@ export function RootLayout() {
           <div>
             <SidebarLink
               link={{
-                label: "Manu Arora",
-                href: "profile",
+                label: user?.name || "manu kumar",
+                href: "settings",
                 icon: (
                   <img
-                    src="https://assets.aceternity.com/manu.png"
+                    src= {user?.profileImage||"https://assets.aceternity.com/manu.png"}
                     className="h-7 w-7 flex-shrink-0 rounded-full"
                     width={50}
                     height={50}

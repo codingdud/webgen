@@ -101,7 +101,7 @@ export enum ComponentType {
   
   export const STYLE_MODIFIERS: Record<StylePreset, StyleModifier> = {
   [StylePreset.MINIMALIST]: {
-    description: 'minimalist web design, ample white space, essential elements only, clear hierarchy, high contrast, modern simplicity',
+    description: 'minimalist web design image only, ample white space, essential elements only, clear hierarchy, high contrast, modern simplicity',
     keywords: [
       'minimalist', 'clean lines', 'whitespace', 'essential', 
       'balanced composition', 'subtle gradients', 'high contrast',
@@ -109,7 +109,7 @@ export enum ComponentType {
     ]
   },
   [StylePreset.MODERN]: {
-    description: 'modern web interface, dynamic composition, bold color accents, smooth gradients, floating elements, glass morphism, subtle shadows, cutting-edge design trends',
+    description: 'modern web assert image only, dynamic composition, bold color accents, smooth gradients, floating elements, glass morphism, subtle shadows, cutting-edge design trends',
     keywords: [
       'modern UI', 'sleek interface', 'dynamic layout',
       'bold accents', 'gradient effects', 'glass morphism',
@@ -117,7 +117,7 @@ export enum ComponentType {
     ]
   },
   [StylePreset.CORPORATE]: {
-    description: 'professional web elements, trustworthy appearance, corporate identity, consistent branding, structured layout, premium quality, business-appropriate visuals',
+    description: 'professional web elements image only, trustworthy appearance, corporate identity, consistent branding, structured layout, premium quality, business-appropriate visuals',
     keywords: [
       'professional', 'corporate identity', 'premium quality',
       'business appropriate', 'structured', 'trustworthy',
@@ -125,7 +125,7 @@ export enum ComponentType {
     ]
   },
   [StylePreset.CREATIVE]: {
-    description: 'creative web design, unique visual elements, artistic composition, vibrant color palette, innovative layouts, expressive style, eye-catching details, memorable visuals',
+    description: 'creative web design image only, unique visual elements, artistic composition, vibrant color palette, innovative layouts, expressive style, eye-catching details, memorable visuals',
     keywords: [
       'creative design', 'artistic elements', 'innovative',
       'expressive', 'unique perspective', 'vibrant',
@@ -133,7 +133,7 @@ export enum ComponentType {
     ]
   },
   [StylePreset.GEOMETRIC]: {
-    description: 'geometric web patterns, precise shapes, mathematical harmony, structured grid layout, clean intersections, balanced proportions, modern abstract forms, systematic design',
+    description: 'geometric web patterns images, precise shapes, mathematical harmony, structured grid layout, clean intersections, balanced proportions, modern abstract forms, systematic design',
     keywords: [
       'geometric shapes', 'precise patterns', 'grid based',
       'mathematical', 'structured composition', 'clean lines',
@@ -141,7 +141,7 @@ export enum ComponentType {
     ]
   },
   [StylePreset.SKETCH]: {
-    description: 'hand-drawn web elements, authentic sketched style, natural pen strokes, organic textures, artistic illustration, casual drawing style, personal touch, warmth',
+    description: 'pencil sketch illustration, organic hand-drawn style, soft pencil strokes, textured shading, natural artistic elements, loose sketch lines, freehand drawing, gentle sketching technique',
     keywords: [
       'hand-drawn', 'sketched style', 'organic lines',
       'natural strokes', 'artistic illustration', 'authentic',
