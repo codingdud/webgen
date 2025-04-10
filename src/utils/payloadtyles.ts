@@ -49,7 +49,7 @@ export enum ComponentType {
   export const COMPONENT_DEFAULTS: Record<ComponentType, ComponentDefaults> = {
     [ComponentType.HEADER]: {
       defaultRatio: AspectRatio.RATIO_16_9,
-      basePrompt: 'Professional website header image only with clear focal point and space for text overlay',
+      basePrompt: 'Professional  header image only with clear focal pointclea',
       negativePrompt: 'text, watermark, blurry, low quality, cluttered'
     },
     [ComponentType.CARD]: {
@@ -64,7 +64,7 @@ export enum ComponentType {
     },
     [ComponentType.BACKGROUND]: {
       defaultRatio: AspectRatio.RATIO_16_9,
-      basePrompt: 'Subtle background pattern or texture image',
+      basePrompt: 'background pattern or image',
       negativePrompt: 'sharp objects, text, logos, busy patterns'
     },
     [ComponentType.THUMBNAIL]: {
@@ -74,7 +74,7 @@ export enum ComponentType {
     },
     [ComponentType.PRODUCT]: {
       defaultRatio: AspectRatio.RATIO_1_1,
-      basePrompt: 'Professional product photography on clean background image',
+      basePrompt: 'Professional product photography',
       negativePrompt: 'text, watermark, distracting elements, busy background'
     },
     [ComponentType.ICON]: {
@@ -89,8 +89,8 @@ export enum ComponentType {
     },
     [ComponentType.TESTIMONIAL]: {
       defaultRatio: AspectRatio.RATIO_1_1,
-      basePrompt: 'Authentic looking testimonial image',
-      negativePrompt: 'artificial looking, overly posed, low quality'
+      basePrompt: 'Authentic looking testimonial image only',
+      negativePrompt: 'artificial looking, overly posed, low quality,text ,sentance'
     },
     [ComponentType.CTA]: {
       defaultRatio: AspectRatio.RATIO_3_2,
@@ -101,7 +101,7 @@ export enum ComponentType {
   
   export const STYLE_MODIFIERS: Record<StylePreset, StyleModifier> = {
   [StylePreset.MINIMALIST]: {
-    description: 'minimalist web design image only, ample white space, essential elements only, clear hierarchy, high contrast, modern simplicity',
+    description: 'minimalist design image only, ample white space, essential elements only, clear hierarchy, high contrast, modern simplicity',
     keywords: [
       'minimalist', 'clean lines', 'whitespace', 'essential', 
       'balanced composition', 'subtle gradients', 'high contrast',
@@ -109,7 +109,7 @@ export enum ComponentType {
     ]
   },
   [StylePreset.MODERN]: {
-    description: 'modern web assert image only, dynamic composition, bold color accents, smooth gradients, floating elements, glass morphism, subtle shadows, cutting-edge design trends',
+    description: 'modern assert image only, dynamic composition, bold color accents, smooth gradients, floating elements, glass morphism, subtle shadows, cutting-edge design trends',
     keywords: [
       'modern UI', 'sleek interface', 'dynamic layout',
       'bold accents', 'gradient effects', 'glass morphism',
@@ -117,7 +117,7 @@ export enum ComponentType {
     ]
   },
   [StylePreset.CORPORATE]: {
-    description: 'professional web elements image only, trustworthy appearance, corporate identity, consistent branding, structured layout, premium quality, business-appropriate visuals',
+    description: 'professional elements image only, trustworthy appearance, corporate identity, consistent branding, structured layout, premium quality, business-appropriate visuals',
     keywords: [
       'professional', 'corporate identity', 'premium quality',
       'business appropriate', 'structured', 'trustworthy',
@@ -125,7 +125,7 @@ export enum ComponentType {
     ]
   },
   [StylePreset.CREATIVE]: {
-    description: 'creative web design image only, unique visual elements, artistic composition, vibrant color palette, innovative layouts, expressive style, eye-catching details, memorable visuals',
+    description: 'creative  design image only, unique visual elements, artistic composition, vibrant color palette, innovative layouts, expressive style, eye-catching details, memorable visuals',
     keywords: [
       'creative design', 'artistic elements', 'innovative',
       'expressive', 'unique perspective', 'vibrant',
@@ -133,7 +133,7 @@ export enum ComponentType {
     ]
   },
   [StylePreset.GEOMETRIC]: {
-    description: 'geometric web patterns images, precise shapes, mathematical harmony, structured grid layout, clean intersections, balanced proportions, modern abstract forms, systematic design',
+    description: 'geometric patterns, precise shapes, mathematical harmony, structured grid layout, clean intersections, balanced proportions, modern abstract forms, systematic design',
     keywords: [
       'geometric shapes', 'precise patterns', 'grid based',
       'mathematical', 'structured composition', 'clean lines',
