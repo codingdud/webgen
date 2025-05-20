@@ -7,8 +7,12 @@ const useRefreshToken = () => {
 
   const refresh = async () => {
     try {
-      const response = await axios.get('/api/v1/auth/refresh-token', {
+      const refreshToken = localStorage.getItem('refreshToken');
+      const response = await axios.post('/api/v1/auth/refresh-token', {
         withCredentials: true,
+        data: {
+        refreshToken // Send as backup in case cookies fail
+      }
       });
 
       // Dispatch the setToken action to update the Redux state
