@@ -5,6 +5,7 @@ import { cn } from "../lib/utils";
 import { TagInput } from "../components/ui/tag";
 import TemplateGalleryLoading from "../components/splash/templateloading";
 import useTemplates from "../hooks/useTemplate";
+import TemplateCard from "../components/ui/templateCard";
 
 const TemplatePage = () => {
   const [searchTitle, setSearchTitle] = useState("");
