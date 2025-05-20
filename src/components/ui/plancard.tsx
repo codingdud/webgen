@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface PlanCardProps {
   title: string;
   price: string;
@@ -8,7 +10,15 @@ interface PlanCardProps {
   isSelected: boolean;
 }
 
-const PlanCard: React.FC<PlanCardProps> = ({ title, price, duration, features, isHighlighted, onSelect, isSelected }) => {
+const PlanCard: React.FC<PlanCardProps> = ({
+  title,
+  price,
+  duration,
+  features,
+  isHighlighted,
+  onSelect,
+  isSelected,
+}) => {
   return (
     <div
       className={`bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-80 cursor-pointer transition-all transform ${
@@ -30,7 +40,9 @@ const PlanCard: React.FC<PlanCardProps> = ({ title, price, duration, features, i
       </ul>
       <button
         className={`mt-6 w-full py-2 rounded ${
-          isSelected ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white hover:bg-blue-600'
+          isSelected
+            ? 'bg-blue-600 text-white'
+            : 'bg-blue-500 text-white hover:bg-blue-600'
         }`}
       >
         {isSelected ? 'Selected' : 'Get Started'}

@@ -20,6 +20,9 @@ const ConfirmationModal = ({ close, data, action, warnning }: ConfirmationModalP
         },
         { errors: {}, message: "" }
     );
+    if(state?.message?.includes("successfully")){
+        close()
+    }
     return (
         <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-md p-6 w-full max-w-md">
             <form action={formAction} method="POST">

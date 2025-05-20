@@ -4,9 +4,8 @@ import DashboardLoading from './components/splash/dashboardloading'
 //import SettingsLoading from './components/splash/settingloading'
 //import BillingLoading from './components/splash/billingloading'
 //import ProjectLoading from './components/splash/projectloading'
-import TemplateGalleryLoading from './components/splash/templateloading'
 //import APIDocumentationLoading from './components/splash/apiloading'
-import { useSelector } from 'react-redux'
+import {useSelector } from 'react-redux'
 import AuthPage from './pages/authpage'
 import Dashboard from './pages/dashboard'
 import ProjectPage from './pages/projectpage'
@@ -18,6 +17,12 @@ import PricingPage from './pages/pricingpage'
 import ProjectDetailsPage from './pages/projectdetailspage'
 import NotFoundPage from './pages/notfound'
 import useAuth from './hooks/useAuth'
+import StripeCheckoutPage from './pages/stripcheckout'
+import PaymentSuccessPage from './pages/pamentsucess'
+import PaymentCancelPage from './pages/pamentcancel'
+import TemplatePage from './pages/templatepage'
+import TemplateDetailsPage from './pages/templatedetailspage'
+
 export default function App() {
   const {status}=useAuth()
   const isAuthenticated = useSelector((state: { authState: { isAuthenticated: boolean } }) => state.authState.isAuthenticated)
@@ -44,7 +49,7 @@ export default function App() {
         },
         {
           path: 'templates',
-          element: <TemplateGalleryLoading/>
+          element: <TemplatePage/>
         },
         {
           path: 'profile',
@@ -69,6 +74,22 @@ export default function App() {
         {
           path:'project/:id',
           element:<ProjectDetailsPage/>
+        },
+        {
+          path: '/billing/checkout',
+          element: <StripeCheckoutPage/>,
+        },
+        {
+          path: '/billing/success',
+          element: <PaymentSuccessPage />,
+        },
+        {
+          path: '/billing/cancel',
+          element: <PaymentCancelPage />,
+        },
+        {
+          path:'/templatedetails/:id',
+          element:<TemplateDetailsPage/>
         }
       ]
     },

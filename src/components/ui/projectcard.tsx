@@ -2,6 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { useState } from "react";
+import { publishProject,unpublishProject } from "../../store/Thunk/projectActions";
+import { useDispatch } from "react-redux";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { AppDispatch } from "../../store";
 
 interface Image {
   metadata: {
@@ -28,6 +32,7 @@ interface ProjectCardProps {
   status: "draft" | "in-progress" | "completed";
   createdAt: string;
   updatedAt: string;
+  publish:boolean
 }
 const statusColors = {
   draft: "bg-yellow-500",
@@ -35,7 +40,9 @@ const statusColors = {
   completed: "bg-green-500",
 };
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ _id,title, description, images, tags, status, updatedAt }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ _id,title, description, images, tags, status, updatedAt, publish}) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
   return (
@@ -54,7 +61,33 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ _id,title, description, image
       </div>
       <div className="p-4">
         <div className="flex justify-between items-center space-x-4">
-          <h2 className="text-lg font-medium">{title}</h2>
+          <div className="flex">
+            <h2 className="text-lg font-medium">{title} </h2>
+            <div className="flex items-center ml-2">
+              <span className="text-xs mr-2">
+              {publish ? 'Published' : 'Not Published'}
+              </span>
+              <button
+              onClick={(e) => {
+                e.stopPropagation();
+                // Replace this with your publish/unpublish action
+                console.log(publish ? 'Set to unpublish' : 'Set to publish');
+                if(!publish){
+                  dispatch(publishProject({axiosPrivate, projectId: _id}))
+                }else{
+                  dispatch(unpublishProject({axiosPrivate, projectId: _id}))
+                }
+              }}
+              className={`w-8 h-4 flex items-center rounded-full transition-colors duration-200 ease-in-out ${
+                publish ? 'bg-green-500' : 'bg-gray-400'
+              }`}
+              >
+              <span className={`w-3 h-3 bg-white rounded-full transform transition-transform duration-200 ease-in-out ${
+                publish ? 'translate-x-4' : 'translate-x-1'
+              }`} />
+              </button>
+            </div>
+          </div>
           <span className={`inline-block px-2 py-1 text-white text-xs font-medium rounded ${statusColors[status]}`}>{status}</span>
         </div>
         <div className="flex justify-between items-center">

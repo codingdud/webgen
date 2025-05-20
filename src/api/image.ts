@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import generateImagePayload from "../utils/generateimageprompt";
 import { ComponentType,AspectRatio,StylePreset,OutputFormat} from "../utils/payloadtyles";
-import { Axios, AxiosError } from "axios";
+import { Axios } from "axios";
 import { projectActions } from "../store/project-slice";
 import { AppDispatch } from "../store";
 import { FormState } from "./project";
@@ -71,15 +71,23 @@ export const handleGenerateAction=async (_previousState: FormStateGenerateImage,
         return {img: response.data.data}
     } catch (error:unknown) {
         console.log(error)
-        const axiosError = error as AxiosError<any>;
-        return {error: axiosError?.response?.data?.error?.message, prevValue: {
-          componentType: componentType as ComponentType | undefined, 
-          aspectRatio, 
-          negativePrompt: negativePrompt?.toString() || undefined, 
-          outputFormat: outputFormat as OutputFormat | undefined, 
-          prompt: prompt?.toString(), 
-          colorScheme: colorScheme.map(value => String(value)), 
-          stylePreset: stylePreset?.toString() as StylePreset}}
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : (error as { response?: { data?: { error?: { message: string } } } })?.response?.data?.error?.message ||
+              "Failed to generate image";
+        return {
+          error: errorMessage,
+          prevValue: {
+            componentType: componentType as ComponentType | undefined,
+            aspectRatio,
+            negativePrompt: negativePrompt?.toString() || undefined,
+            outputFormat: outputFormat as OutputFormat | undefined,
+            prompt: prompt?.toString(),
+            colorScheme: colorScheme.map(value => String(value)),
+            stylePreset: stylePreset?.toString() as StylePreset
+          }
+        };
     }
 
   }
@@ -103,11 +111,16 @@ export const handleGenerateAction=async (_previousState: FormStateGenerateImage,
         errors: {},
         message: "image deleted successfully!",
       };
-    } catch (error: any) {
+        } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : (error as { response?: { data?: { error?: { message: string } } } })?.response?.data?.error?.message ||
+        "Failed to delete image";
       console.error("Delete failed:", error);
       return {
         errors: {},
-        message: error.response?.data?.error?.message || "Failed to delete image",
+        message: errorMessage,
       };
     }
   }

@@ -44,23 +44,25 @@ export interface FormState {
       errors: {},
       message: 'Project created successfully!'
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Project creation failed:', error);
 
-    const serverErrors = error.response?.data?.errors || {};
-    const errorMessage = error.response?.data?.error?.message 
-      || error.message 
-      || 'Failed to create project';
+    const errorMessage = error instanceof Error
+      ? error.message
+      : (error as { response?: { data?: { error?: { message?: string }, errors?: Record<string, string> } } })?.response?.data?.error?.message
+      || "Failed to create project";
+
+    const serverErrors = (error as { response?: { data?: { errors?: Record<string, string> } } })?.response?.data?.errors || {};
 
     return {
       errors: {
-        title: serverErrors.title || undefined,
-        description: serverErrors.description || undefined,
-        tags: serverErrors.tags || undefined
+      title: serverErrors.title || undefined,
+      description: serverErrors.description || undefined,
+      tags: serverErrors.tags || undefined
       },
-      message: Object.keys(serverErrors).length > 0 
-        ? 'Please fix the form errors'
-        : errorMessage
+      message: Object.keys(serverErrors).length > 0
+      ? 'Please fix the form errors'
+      : errorMessage
     } satisfies FormState;
   }
 }
@@ -91,15 +93,26 @@ export const submitActionUpdate = async(_prevState: FormState, formData: FormDat
       errors: {},
       message: "Project updated successfully!",
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Update failed:", error);
+
+    const errorMessage = error instanceof Error
+      ? error.message
+      : (error as { response?: { data?: { error?: { message?: string }, errors?: Record<string, string> } } })?.response?.data?.error?.message
+      || "Failed to update project";
+
+    const serverErrors = (error as { response?: { data?: { errors?: Record<string, string> } } })?.response?.data?.errors || {};
+
     return {
       errors: {
-        title: error.response?.data?.errors?.title,
-        description: error.response?.data?.errors?.description,
+      title: serverErrors.title || undefined,
+      description: serverErrors.description || undefined,
+      tags: serverErrors.tags || undefined
       },
-      message: error.response?.data?.error?.message || "Failed to update project",
-    };
+      message: Object.keys(serverErrors).length > 0
+      ? 'Please fix the form errors'
+      : errorMessage
+    } satisfies FormState;
   }
 }
 
@@ -121,11 +134,18 @@ export const submitActionDelete = async(_prevState: FormState, _formData: FormDa
       errors: {},
       message: "Project deleted successfully!",
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Delete failed:", error);
+    let errorMessage = "Failed to delete project";
+    if (error && typeof error === "object" && "response" in error) {
+      const err = error as { response?: { data?: { error?: { message?: string } } } };
+      errorMessage = err.response?.data?.error?.message || errorMessage;
+    } else if (error instanceof Error) {
+      errorMessage = error.message;
+    }
     return {
       errors: {},
-      message: error.response?.data?.error?.message || "Failed to delete project",
+      message: errorMessage,
     };
   }
 }

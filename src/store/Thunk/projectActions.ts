@@ -15,7 +15,13 @@ const fetchProjects = createAsyncThunk(
     'project/fetchProjects',
     async ({ axiosPrivate, page = 2, limit = 10, status, tags, title }: FetchProjectsParams, { dispatch }) => {
         try {
-            const params: any = {};
+            const params: {
+                page?: number;
+                limit?: number;
+                status?: string;
+                tags?: string[];
+                title?: string;
+            } = {};
             if (page) params.page = page;
             if (limit) params.limit = limit;
             if (status) params.status = status;
@@ -34,7 +40,34 @@ const fetchProjects = createAsyncThunk(
         }
     }
 );
-
+const publishProject=createAsyncThunk(
+    'project/publish',
+    async ({axiosPrivate,projectId}:{axiosPrivate:Axios,projectId:string}, { dispatch }) => {
+        try {
+            const response = await axiosPrivate.post(`/api/v1/template/publish/${projectId}`);
+            if (response.status === 200) {
+                //console.log(response.data);
+                dispatch(projectActions.updatePublish({projectId, publish: true}));
+            }
+        } catch (error) {
+            console.error('Fetching projects data failed:', error);
+        }
+    }
+)
+const unpublishProject=createAsyncThunk(
+    'project/unpublish',
+    async ({axiosPrivate,projectId}:{axiosPrivate:Axios,projectId:string}, { dispatch }) => {
+        try {
+            const response = await axiosPrivate.post(`/api/v1/template/unpublish/${projectId}`);
+            if (response.status === 200) {
+                //console.log(response.data)
+                dispatch(projectActions.updatePublish({projectId,publish:false}))
+            }
+        } catch (error) {
+            console.error('Fetching projects data failed:', error);
+        }
+    }
+)
 /* const addProject = createAsyncThunk(
     'project/addProject',
     async (project, { dispatch }) => {
@@ -79,4 +112,4 @@ const setPagination = createAsyncThunk(
     }
 );
  */
-export { fetchProjects };
+export { unpublishProject,publishProject,fetchProjects };

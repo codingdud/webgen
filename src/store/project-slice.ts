@@ -14,7 +14,7 @@ export interface Image {
     generatedAt: string;
     __v: number;
   }
-interface Project {
+export interface Project {
     _id: string;
     title: string;
     description: string;
@@ -24,6 +24,7 @@ interface Project {
     status: string;
     createdAt: string;
     updatedAt: string;
+    publish:boolean;
     __v: number;
 }
 
@@ -85,6 +86,12 @@ const projectSlice = createSlice({
             const project = state.projects.find(project => project._id === action.payload.projectId);
             if (project) {
                 project.images = project.images.filter(image => image._id !== action.payload.imageId);
+            }
+        },
+        updatePublish(state, action: PayloadAction<{ projectId: string, publish: boolean }>) {
+            const project = state.projects.find(project => project._id === action.payload.projectId);
+            if (project) {
+            project.publish = action.payload.publish;
             }
         }
     }

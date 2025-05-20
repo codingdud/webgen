@@ -15,7 +15,7 @@ const useRefreshToken = () => {
       dispatch(authActions.setToken(response.data.token));
 
       // Return the new access token
-      return response.data.accessToken;
+      return response.data.token;
     } catch (error) {
       console.error('Failed to refresh token:', error);
       // When refresh token fails, logout the user

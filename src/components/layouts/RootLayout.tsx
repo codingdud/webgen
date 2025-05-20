@@ -2,7 +2,7 @@ import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
 import {
   IconReceiptDollar,
   IconBrandTabler,
-  IconSettings,
+//  IconSettings,
   IconApi,
   IconLayoutDashboard,
   IconGrid3x3,
@@ -13,17 +13,15 @@ import { NavLink, Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import useFetchUser from "../../hooks/useFetchUser";
 
 export function RootLayout() {
-  const{user,loading}=useSelector((state:RootState) => state.userState);
+  const {user,error}=useFetchUser()
   const [dark, setDark] = useState(false);
   const darkModeHandler = () => {
     setDark(!dark);
     document.body.classList.toggle("dark");
   }
-  console.log(user,loading)
   const links = [
     {
       label: "Dashboard",
@@ -46,13 +44,13 @@ export function RootLayout() {
         <IconGrid3x3  className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    {
+    /* {
       label: "Settings",
       href: "settings",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
-    },
+    }, */
     {
       label: "API",
       href: "api",
@@ -102,6 +100,10 @@ export function RootLayout() {
                 ),
               }}
             />
+            {error && (
+            <div className="mt-3 text-sm text-red-600 bg-red-100 p-2 rounded dark:bg-red-800 dark:text-red-300">
+            {error}
+            </div>)}
           </div>
         </SidebarBody>
       </Sidebar>

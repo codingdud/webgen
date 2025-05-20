@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import AccountSettings from "../components/accountsetting";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { fetchUser,updateApiKey } from "../store/Thunk/userAction";
+import {updateApiKey } from "../store/Thunk/userAction";
 import SettingsLoading from "../components/splash/settingloading";
 import { cn } from "../lib/utils";
 
@@ -11,9 +10,9 @@ function SettingsPage() {
   const axiosPrivate = useAxiosPrivate();
   const dispatch = useDispatch<AppDispatch>();
   const{user,loading}=useSelector((state:RootState) => state.userState);
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(fetchUser({ axiosPrivate }));
-  }, [dispatch]);
+  }, [dispatch,axiosPrivate]); */
   return (
     <div className="min-h-screen px-6 py-4 dark:bg-neutral-900 dark:text-white bg-gray-100 text-gray-800">
       {loading && <SettingsLoading/>}

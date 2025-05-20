@@ -5,19 +5,20 @@ import { AppDispatch } from "../store";
 import { FormStateUser, handleFormSubmitUser } from "../api/user";
 import SettingsLoading from "./splash/settingloading";
 import { userActions } from "../store/user-slice";
-import useFetchUser from "../hooks/useFetchUser";
 import useAuth from "../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 export default function AccountSettings() {
   const {logout}=useAuth();
-  const {user,loading,error}=useFetchUser()
+  const{user,loading}=useSelector((state:RootState) => state.userState);
   const axiosPrivate = useAxiosPrivate();
   const dispatch = useDispatch<AppDispatch>();
   const [state,submitAction,loadingUpdate]=useActionState<FormStateUser, FormData>(
     (state: FormStateUser,formData: FormData)=>
       handleFormSubmitUser(state,formData,dispatch,axiosPrivate),
     { error: { code: '', message: '', details: '' } });
-    console.log(state);
+    //console.log(state);
   if (loading) return <SettingsLoading/>;
   if(user)return (
     <div className="w-full mx-auto bg-white dark:bg-neutral-800 rounded-lg shadow-md p-6">
@@ -128,11 +129,7 @@ export default function AccountSettings() {
             </label>
           ))}
         </div>
-          {error && (
-        <div className="mt-3 text-sm text-red-600 bg-red-100 p-2 rounded dark:bg-red-800 dark:text-red-300">
-          {error}
-        </div>)}
-        {state?.message && !error && (
+        {state?.message && !loading && (
         <div className="mt-3 text-sm text-green-600 bg-green-100 p-2 rounded dark:bg-green-800 dark:text-green-300">
           {state.message}
         </div>)}
